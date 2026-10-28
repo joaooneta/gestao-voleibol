@@ -8,11 +8,10 @@ import { Controller, useForm } from "react-hook-form";
 
 export default function TeamForm() {
   const {
-    register,
     control,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm({
     resolver: zodResolver(createTeamSchema),
     defaultValues: {
@@ -60,7 +59,7 @@ export default function TeamForm() {
         />
 
         <Button type="submit" isPending={isSubmitting}>
-          Criar
+          Criar Time
         </Button>
       </form>
     </div>

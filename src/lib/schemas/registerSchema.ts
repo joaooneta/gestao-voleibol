@@ -8,7 +8,7 @@ export const registerSchema = z
       error: "Senha deve ter no minimo 8 caracteres",
     }),
     confirmPassword: z.string(),
-    role: z.enum(["team", "competition"]),
+    role: z.enum(["TEAM_MANAGER", "TOURNAMENT_MANAGER"]),
   })
   .superRefine(({ password, confirmPassword }, ctx) => {
     if (confirmPassword !== password) {

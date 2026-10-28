@@ -17,7 +17,7 @@ export const auth = betterAuth({
   user: {
     additionalFields: {
       role: {
-        type: ["team", "competition"],
+        type: ["TEAM_MANAGER", "TOURNAMENT_MANAGER"],
         required: true,
         input: true,
       },

@@ -35,8 +35,12 @@ export default function LoginForm() {
         password: data.password,
       },
       {
-        onSuccess: () => {
-          router.push("/teams");
+        onSuccess: (ctx) => {
+          const userRole = ctx.data.user.role;
+
+          if (userRole === "TEAM_MANAGER") router.push("/teams");
+          if (userRole === "TOURNAMENT_MANAGER") router.push("/tournaments");
+
           router.refresh();
         },
         onError: (ctx) => {

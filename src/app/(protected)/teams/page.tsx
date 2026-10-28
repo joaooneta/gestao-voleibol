@@ -15,7 +15,9 @@ export default async function TeamsPage() {
 
   const name = user.name;
   const role =
-    user.role === "competition" ? "Gestor de Torneio" : "Gestor de Equipes";
+    user.role === "TOURNAMENT_MANAGER"
+      ? "Gestor de Torneio"
+      : "Gestor de Equipes";
 
   return (
     <>

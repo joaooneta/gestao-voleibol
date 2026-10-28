@@ -24,6 +24,13 @@ export async function createTeam(input: unknown) {
     };
   }
 
+  if (session.user.role !== "TEAM_MANAGER") {
+    return {
+      success: false,
+      error: "Apenas gestores de equipes podem criar equipes",
+    };
+  }
+
   await prisma.team.create({
     data: {
       name: result.data.name,

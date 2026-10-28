@@ -20,6 +20,103 @@ enum VolleyballPosition {
   LIBERO
 }
 
+enum UserRole {
+  TEAM_MANAGER
+  TOURNAMENT_MANAGER
+}
+
+enum TournamentStatus {
+  OPEN
+  IN_PROGRESS
+  FINISHED
+}
+
+enum TournamentTeamStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum MatchStage {
+  QUARTER_FINALS
+  SEMI_FINALS
+  FINAL
+}
+
+model Team {
+  id   String @id @default(cuid())
+  name String
+
+  trainerId String
+  trainer   User   @relation(fields: [trainerId], references: [id], onDelete: Cascade)
+
+  athletes        Athlete[]
+  createdAt       DateTime         @default(now())
+  tournamentTeams TournamentTeam[]
+}
+
+model Athlete {
+  id   String @id @default(cuid())
+  name String
+
+  rg       String
+  cpf      String
+  age      Int
+  position VolleyballPosition
+
+  teamId String
+  team   Team   @relation(fields: [teamId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Tournament {
+  id     String           @id @default(cuid())
+  name   String
+  status TournamentStatus @default(OPEN)
+
+  managerId String
+  manager   User   @relation(fields: [managerId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  matches   Match[]
+
+  tournamentTeams TournamentTeam[]
+}
+
+model TournamentTeam {
+  id String @id @default(cuid())
+
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+
+  teamId String
+  team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  status TournamentTeamStatus
+
+  @@unique([tournamentId, teamId])
+}
+
+model Match {
+  id String @id @default(cuid())
+
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+
+  stage MatchStage
+
+  teamAId    String?
+  teamAScore Int     @default(0)
+
+  teamBId    String?
+  teamBScore Int     @default(0)
+
+  winnerId String?
+
+  createdAt DateTime @default(now())
+}
+
 model User {
   id            String    @id
   name          String
@@ -31,8 +128,9 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
-  role  String
-  teams Team[]
+  role        UserRole
+  teams       Team[]
+  tournaments Tournament[]
 
   @@unique([email])
   @@map("user")
@@ -84,30 +182,4 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
-}
-
-model Team {
-  id   String @id @default(cuid())
-  name String
-
-  trainerId String
-  trainer   User   @relation(fields: [trainerId], references: [id], onDelete: Cascade)
-
-  athletes  Athlete[]
-  createdAt DateTime  @default(now())
-}
-
-model Athlete {
-  id   String @id @default(cuid())
-  name String
-
-  rg       String
-  cpf      String
-  age      Int
-  position VolleyballPosition
-
-  teamId String
-  team   Team   @relation(fields: [teamId], references: [id])
-
-  createdAt DateTime @default(now())
 }

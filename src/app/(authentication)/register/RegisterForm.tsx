@@ -30,7 +30,7 @@ export default function RegisterForm() {
   } = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      role: "team",
+      role: "TEAM_MANAGER",
     },
   });
 
@@ -44,7 +44,9 @@ export default function RegisterForm() {
       },
       {
         onSuccess: () => {
-          router.push("/teams");
+          if (data.role === "TEAM_MANAGER") router.push("/teams");
+          if (data.role === "TOURNAMENT_MANAGER") router.push("/tournaments");
+
           router.refresh();
         },
 
@@ -114,7 +116,7 @@ export default function RegisterForm() {
               className="w-full"
             >
               <Label>Selecionar Função</Label>
-              <Radio value="team" className="flex">
+              <Radio value="TEAM_MANAGER" className="flex">
                 <Radio.Content>
                   <Radio.Control>
                     <Radio.Indicator />
@@ -123,7 +125,7 @@ export default function RegisterForm() {
                 </Radio.Content>
               </Radio>
 
-              <Radio value="competition">
+              <Radio value="TOURNAMENT_MANAGER">
                 <Radio.Content>
                   <Radio.Control>
                     <Radio.Indicator />

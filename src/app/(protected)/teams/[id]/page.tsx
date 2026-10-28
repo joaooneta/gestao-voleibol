@@ -1,7 +1,6 @@
 import { getCurrentUser } from "@/lib/auth";
 import AthleteForm from "./AthleteForm";
 import { prisma } from "@/lib/prisma";
-import { Button, Card, CardContent } from "@heroui/react";
 import AthleteCard from "./AthleteCard";
 
 export default async function AddPlayerPage(props: PageProps<"/teams/[id]">) {
