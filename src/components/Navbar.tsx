@@ -26,10 +26,6 @@ export default function Navbar() {
           Times
         </Link>
 
-        <Link href={"/athletes"} className="text-white ">
-          Atletas
-        </Link>
-
         <Button variant="secondary" onClick={logout}>
           Deslogar
         </Button>

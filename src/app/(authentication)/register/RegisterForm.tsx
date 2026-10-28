@@ -8,7 +8,6 @@ import {
   CardFooter,
   CardHeader,
   FieldError,
-  Form,
   Input,
   Link,
   TextField,
@@ -41,6 +40,7 @@ export default function RegisterForm() {
         email: data.email,
         password: data.password,
         name: data.name,
+        role: data.role,
       },
       {
         onSuccess: () => {
