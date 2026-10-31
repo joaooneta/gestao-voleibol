@@ -30,6 +30,7 @@ export default function TeamForm({ teamId }: { teamId: string }) {
       cpf: "",
       rg: "",
       age: "",
+      gender: undefined,
       position: undefined,
     },
   });
@@ -125,6 +126,40 @@ export default function TeamForm({ teamId }: { teamId: string }) {
               <Input ref={field.ref} type="number" placeholder="Idade" />
               <FieldError>{fieldState.error?.message}</FieldError>
             </TextField>
+          )}
+        />
+
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Select
+              aria-label="Genero"
+              placeholder="Selecione o genero"
+              value={field.value || null}
+              onChange={(value) => field.onChange(value ?? "")}
+              onBlur={field.onBlur}
+              isInvalid={fieldState.invalid}
+              className={"w-full"}
+            >
+              <Select.Trigger>
+                <Select.Value />
+                <Select.Indicator />
+              </Select.Trigger>
+
+              <Select.Popover>
+                <ListBox>
+                  <ListBox.Item id="MALE" textValue="Masculino">
+                    Masculino
+                  </ListBox.Item>
+                  <ListBox.Item id="FEMALE" textValue="Feminino">
+                    Feminino
+                  </ListBox.Item>
+                </ListBox>
+              </Select.Popover>
+
+              <FieldError>{fieldState.error?.message}</FieldError>
+            </Select>
           )}
         />
 

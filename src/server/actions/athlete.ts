@@ -63,6 +63,7 @@ export async function createAthlete(input: unknown, teamId: string) {
       age: result.data.age,
       position: result.data.position,
       team: { connect: { id: teamId } },
+      gender: result.data.gender,
     },
   });
 

@@ -45,13 +45,14 @@ export default function SubscribeTournamentForm({
         </Select>
       </div>
 
-      <div className="flex flex-col gap-5 p-5">
+      <div className="flex flex-col gap-5 p-5 w-full">
         {tournaments.map((tournament) => (
           <SubscribeTournamentCard
             key={tournament.id}
             id={tournament.id}
             name={tournament.name}
             team={selectedTeam}
+            tournament={tournament}
           />
         ))}
       </div>

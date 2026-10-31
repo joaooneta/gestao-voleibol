@@ -26,6 +26,7 @@ enum UserRole {
 }
 
 enum TournamentStatus {
+  CONFIGURING
   OPEN
   IN_PROGRESS
   FINISHED
@@ -41,6 +42,17 @@ enum MatchStage {
   QUARTER_FINALS
   SEMI_FINALS
   FINAL
+}
+
+enum AthleteGender {
+  MALE
+  FEMALE
+}
+
+enum TournamentGender {
+  MALE
+  FEMALE
+  MIXED
 }
 
 model Team {
@@ -63,6 +75,7 @@ model Athlete {
   cpf      String
   age      Int
   position VolleyballPosition
+  gender   AthleteGender
 
   teamId String
   team   Team   @relation(fields: [teamId], references: [id])
@@ -74,6 +87,12 @@ model Tournament {
   id     String           @id @default(cuid())
   name   String
   status TournamentStatus @default(OPEN)
+
+  minPlayers Int?
+  maxPlayers Int?
+  minAge     Int?
+  maxAge     Int?
+  gender     TournamentGender?
 
   managerId String
   manager   User   @relation(fields: [managerId], references: [id], onDelete: Cascade)

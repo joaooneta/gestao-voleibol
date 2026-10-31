@@ -1,5 +1,5 @@
 import z from "zod";
-import { VolleyballPosition } from "@/../generated/prisma/enums";
+import { AthleteGender, VolleyballPosition } from "@/../generated/prisma/enums";
 
 function isValidCPF(cpf: string): boolean {
   const digits = cpf.replace(/\D/g, "");
@@ -52,6 +52,8 @@ export const createAthleteSchema = z.object({
     .int("Idade invalida")
     .min(1, "Minimo de 1 ano")
     .max(120, "Maximo de 120 anos"),
+
+  gender: z.enum(AthleteGender, { message: "O genero e obrigatorio" }),
 
   position: z.enum(VolleyballPosition, {
     error: "Posicao invalida.",

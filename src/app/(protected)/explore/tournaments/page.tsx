@@ -20,8 +20,8 @@ export default async function ExploreTournaments() {
   console.log("Times", teams);
 
   return (
-    <div className="flex flex-col items-center gap-5">
-      <h2 className="text-3xl text-center ">Torneios Abertos</h2>
+    <div className="flex flex-col items-center gap-5 w-full">
+      <h2 className="text-3xl text-center">Torneios Abertos</h2>
 
       <SubscribeTournamentForm teams={teams} tournaments={tournaments} />
     </div>

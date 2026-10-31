@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import ManageSubscription from "./ManageSubscription";
 import ManageTournament from "./ManageTournament";
 import TournamentResult from "./TournamentResult";
+import TournamentConfigurationForm from "./TournamentConfigurationForm";
 
 export default async function TournamentPage(
   props: PageProps<"/tournaments/[id]">,
@@ -33,6 +34,10 @@ export default async function TournamentPage(
 
   return (
     <>
+      {tournament.status === "CONFIGURING" && (
+        <TournamentConfigurationForm tournament={tournament} />
+      )}
+
       {tournament.status === "OPEN" && (
         <ManageSubscription tournament={tournament} />
       )}

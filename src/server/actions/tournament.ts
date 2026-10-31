@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import {
+  configuringTournamentSchema,
   createTournamentSchema,
   startTournamentSchema,
 } from "@/lib/schemas/tournamentSchema";
@@ -38,12 +39,68 @@ export async function createTournament(input: unknown) {
   await prisma.tournament.create({
     data: {
       name: result.data.name,
-      status: "OPEN",
+      status: "CONFIGURING",
       manager: { connect: { id: session.user.id } },
     },
   });
 
   revalidatePath("/tournaments");
+
+  return { success: true };
+}
+
+export async function configureTournament(
+  input: unknown,
+  tournamentId: string,
+) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return { success: false, error: "Usuario nao autenticado" };
+  }
+
+  if (session.user.role !== "TOURNAMENT_MANAGER") {
+    return {
+      success: false,
+      error: "Apenas gestores de torneio podem gerir torneios",
+    };
+  }
+
+  const result = configuringTournamentSchema.safeParse(input);
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: "Dados invalidos",
+    };
+  }
+
+  const existingTournament = await await prisma.tournament.findUnique({
+    where: { id: tournamentId },
+  });
+
+  if (!existingTournament) {
+    return {
+      success: false,
+      error: "Torneio nao existe",
+    };
+  }
+
+  if (existingTournament.status !== "CONFIGURING") {
+    return {
+      success: false,
+      error: "Fase de configuracao ja foi encerrada",
+    };
+  }
+
+  const updatedTournament = await prisma.tournament.update({
+    where: { id: tournamentId },
+    data: { ...result.data, status: "OPEN" },
+  });
+
+  revalidatePath(`/tournaments/${tournamentId}`);
 
   return { success: true };
 }
@@ -168,6 +225,7 @@ export async function startTournament(input: unknown) {
   return { success: true };
 }
 
+/*
 async function getCurrentTournamentStage(tournamentId: string) {
   const matches = await prisma.match.findMany({
     where: { tournamentId },
@@ -180,3 +238,4 @@ async function getCurrentTournamentStage(tournamentId: string) {
   if (hasSemis) return "SEMI_FINALS";
   return "QUARTER_FINALS";
 }
+*/

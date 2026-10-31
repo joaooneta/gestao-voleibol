@@ -4,20 +4,29 @@ import { Button, toast } from "@heroui/react";
 import { Team } from "../../../../../generated/prisma/client";
 import { useState } from "react";
 import { requestTournamentEntry } from "@/server/actions/tournament-team";
+import TournamentInfoModal from "./TournamentInfoModal";
+import { Tournament } from "../../../../../generated/prisma/browser";
 
 type TournamentCardProps = {
   id: string;
   name: string;
   team: Team;
+  tournament: Tournament;
 };
 
 export default function SubscribeTournamentCard({
   id,
   name,
   team,
+  tournament,
 }: TournamentCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
 
   const handleSubscribe = async () => {
     setIsSubscribing(true);
@@ -52,9 +61,21 @@ export default function SubscribeTournamentCard({
     >
       <p>{name}</p>
 
-      <Button onClick={handleSubscribe} isPending={isSubscribing}>
-        Se inscrever
-      </Button>
+      <div className="flex gap-5">
+        <Button variant="outline" onClick={handleModalOpen}>
+          Informações
+        </Button>
+
+        <Button onClick={handleSubscribe} isPending={isSubscribing}>
+          Se inscrever
+        </Button>
+      </div>
+
+      <TournamentInfoModal
+        tournament={tournament}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 }

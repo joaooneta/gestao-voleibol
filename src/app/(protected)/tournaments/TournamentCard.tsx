@@ -9,6 +9,7 @@ type TournamentCardProps = {
 };
 
 const statusLabels = {
+  CONFIGURING: "Configurando",
   OPEN: "Em Aberto",
   IN_PROGRESS: "Em Andamento",
   FINISHED: "Finalizado",
