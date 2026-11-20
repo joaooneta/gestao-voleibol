@@ -14,7 +14,7 @@ export const registerSchema = z
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "Senhas devem ser combinar",
+        message: "Senhas devem combinar",
         path: ["confirmPassword"],
       });
     }
