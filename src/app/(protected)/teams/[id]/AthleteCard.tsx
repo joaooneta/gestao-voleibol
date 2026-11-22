@@ -1,5 +1,6 @@
 "use client";
 
+import { VolleyballPosition } from "../../../../../generated/prisma/enums";
 import { deleteAthlete } from "@/server/actions/athlete";
 import { Button, Card, CardContent, toast } from "@heroui/react";
 import { useState } from "react";
@@ -10,6 +11,14 @@ type AthleteCardProps = {
   name: string;
   age: number;
   teamId: string;
+};
+
+const positionText: Record<string, string> = {
+  SETTER: "Levantador",
+  OPPOSITE: "Oposto",
+  OUTSIDE_HITTER: "Ponteiro",
+  MIDDLE_BLOCKER: "Meio de rede",
+  LIBERO: "Libero",
 };
 
 export default function AthleteCard({
@@ -47,7 +56,7 @@ export default function AthleteCard({
 
         <p>{age} anos</p>
 
-        <p>{position}</p>
+        <p>{positionText[position]}</p>
 
         <Button
           className="mt-auto w-full"

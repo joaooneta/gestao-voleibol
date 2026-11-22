@@ -111,7 +111,7 @@ export default function TournamentConfigurationForm({
               <Input
                 ref={field.ref}
                 type="number"
-                placeholder="Jogadores Minimos"
+                placeholder="Jogadores Maximos"
               />
               <FieldError>{fieldState.error?.message}</FieldError>
             </TextField>

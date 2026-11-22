@@ -207,7 +207,7 @@ export default function TeamForm({ teamId }: { teamId: string }) {
         />
 
         <Button type="submit" isPending={isSubmitting}>
-          Criar
+          Inserir
         </Button>
       </form>
     </div>
