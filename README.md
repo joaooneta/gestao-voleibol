@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Aplicação Web para Gestão de Competições Esportivas Amadoras de Voleibol
 
-## Getting Started
+A Aplicação Web para Gestão de Competições Esportivas Amadoras de Voleibol é um sistema para internet construído com o objetivo de agilizar os processos de inscrição, análise de documentos, e divulgação de resultados de competições esportivas amadoras de voleibol.
 
-First, run the development server:
+## Tecnologias
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- PostgreSQL
+- Prisma ORM
+
+## Pacotes / Bibliotecas
+
+- HeroUI
+- Better Auth
+- React Hook Form
+- Zod
+
+## Primeiros passos
+
+- Pré-requisitos
+  - Node.js (18+ recomendado)
+  - npm (ou pnpm/yarn)
+  - PostgreSQL
+
+- Configuração de ambiente
+  - Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
+```env
+# Chave secreta utilizada pelo Better Auth para assinatura de tokens e sessões
+BETTER_AUTH_SECRET="sua-chave-secreta-aqui"
+
+# URL base onde a aplicação está rodando (em desenvolvimento, geralmente http://localhost:3000)
+BETTER_AUTH_URL="http://localhost:3000"
+
+# String de conexão com o banco de dados PostgreSQL
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco?schema=public"
+```
+
+- Instalação das dependências
+
+```bash
+npm install
+```
+
+- Configuração do banco de dados
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+- Para executar o projeto em desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Telas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `/login`: Tela de Login
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+![Tela de Login](./public/screenshots/login.png)
 
-## Learn More
+- `/login`: Tela de Registro
 
-To learn more about Next.js, take a look at the following resources:
+![Tela de Registro](./public/screenshots/registro.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/teams`: Tela de Criação de Equipes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![Tela de Criação de Equipes](./public/screenshots/criar-equipe.png)
 
-## Deploy on Vercel
+- `/teams[:id]`: Tela de Inserção de Jogadores na Equipe
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Tela de Inserção de Jogadores na Equipe](./public/screenshots/criar-jogadores.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `/explore/tournaments`: Tela de Busca de Torneios Abertos para Inscrição
+
+![Tela de Busca de Torneios Abertos para Inscrição](./public/screenshots/buscar-torneios.png)
+![Tela de Busca de Torneios Abertos para Inscrição (modal)](./public/screenshots/modal-informacoes-torneio.png)
+
+- `/tournaments`: Tela de Criação de Competições
+
+![Tela de Criação de Competições](./public/screenshots/criar-torneio.png)
+
+- `/tournaments[:id]`: Tela de Configuração da Competição
+
+![Tela de Configuração de Competição](./public/screenshots/configurar-torneio.png)
+
+- `/tournaments[:id]`: Tela de Gerenciamento de Inscrições da Competição
+
+![Telas de Gerenciamento de Inscrições da Competição](./public/screenshots/gerenciar-inscricoes.png)
+
+- `/tournaments[:id]`: Tela de Inserção dos Resultados das Partidas da Competição
+
+![Tela de Inserção dos Resultados das Partidas da Competição](./public/screenshots/chaveamento-automatico.png)
+
+- `/tournaments[:id]`: Tela de Divulgação do Resultado da Competição
+
+![Tela de Divulgação do Resultado da Competição](./public/screenshots/resultado-torneio.png)
+
+## Links
+
+- Repository: https://github.com/joaooneta/gestao-voleibol
+
+## Versionamento
+
+1.0.0.0
+
+## Autores
+
+- **João Oneta**
